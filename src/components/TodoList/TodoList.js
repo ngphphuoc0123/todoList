@@ -8,10 +8,6 @@ const TodoList = () => {
     const [data, setData] = useState(todoList.todoList)
     const [editMode, setEditMode] = useState(true)
 
-    useEffect(()=>{
-        // setData()
-        console.log('abc');
-    },[data])
     return (
         <>
             <div className='container'>
