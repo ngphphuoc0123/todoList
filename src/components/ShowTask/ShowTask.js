@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import Task from '../EditTodoList/Task/Task';
  
-const ShowTask = ({ data }) => {
+const ShowTask = ({ data,editMode }) => {
     const [list, setList] = useState(data)
- 
-    const handleShowDone = () => {
-        setList(data.filter(item => item.isDone === true))
-    }
-    const handleShowNotDone = () => {
-        setList(data.filter(item => item.isDone === false))
+    const handleShowDone = (isDone) => {
+        setList(data.filter(item => item.isDone === isDone))
     }
     const handleShowAll = () => {
         setList(data)
@@ -20,14 +16,13 @@ const ShowTask = ({ data }) => {
                 <div>
                     <div className='filterTask'>
                         <button onClick={handleShowAll}>Show All</button>
-                        <button onClick={handleShowDone}>Show Done</button>
-                        <button onClick={handleShowNotDone}> Show Not Done</button>
+                        <button onClick={()=>handleShowDone(true)}>Show Done</button>
+                        <button onClick={()=>handleShowDone(false)}> Show Not Done</button>
                     </div>
                     <div className='dataTask'>
-                        {list.map((list) => <Task task={list} key={list.id} />)}
+                        {list.map((list) => <Task task={list} key={list.id} editMode={editMode} />)}
                     </div>
                 </div>
- 
             )) || <div>There is no task to show</div>}
         </div>
  

@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import './createTask.scss'
-const CreateTask = ({  handleCreate,setOpenCreate }) => {
-    const [newTask, setNewTask] = useState({ isDone: false, description: '' })
+
+const initialTask = { isDone: false, description: '' }
+
+const CreateTask = ({ task = initialTask, handleCreate, setOpenCreate }) => {
+    const [newTask, setNewTask] = useState(task)
     const handleCreateTask = (e) => {
         setNewTask({ ...newTask, description: e.target.value })
     }
 
     return (
         <>
-            <form className='create-task' onSubmit={()=>{handleCreate(newTask)}}>
-                <input placeholder='to do thing' onChange={handleCreateTask}></input>
-                <input type='submit' value="create"/>
-                <input type='reset' value='cancel'/>
+            <form className='create-task' onSubmit={() => { handleCreate(newTask) }} >
+                <input placeholder='to do thing' defaultValue={task.description} onChange={handleCreateTask} />
+                <input type='submit' value={task.id ? "SAVE" : "CREATE"} />
+                <input type='reset' value='CANCEL' onClick={() => setOpenCreate(false)} />
             </form>
             {/* <div className='create-task'>
                 <input placeholder='to do thing' onChange={handleCreateTask}></input>
@@ -20,6 +23,6 @@ const CreateTask = ({  handleCreate,setOpenCreate }) => {
             </div> */}
         </>
     )
- 
+
 }
 export default CreateTask;
