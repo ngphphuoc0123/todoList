@@ -1,0 +1,32 @@
+.edit-container {
+    transition: all 0.5s ease;
+    .todolist-action {
+        margin-bottom: 1rem;
+        text-align: right;
+        .btn-add {
+            padding: 0.5rem 1rem;
+            color: #fda085;
+        }
+    }
+    .data-task {
+        transition: all 0.2s ease-in;
+        // transition: all .5s ease;
+        min-height: 100px;
+    }
+    .btn {
+        display: flex;
+        justify-content: space-between;
+        &-sort {
+           
+        }
+        &-all {
+            &-done {
+                margin-right: 1rem;
+                color: #0caf8e;;
+            }
+            &-del {
+                color: #ff6666;
+            }
+        }
+    }
+}

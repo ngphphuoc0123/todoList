@@ -3,17 +3,17 @@
         {
             "id": 1,
             "isDone": true,
-            "description": "tap the duc"
+            "description": "tập thể dục"
         },
         {
             "id": 2,
             "isDone": false,
-            "description": "di ia"
+            "description": "thức dậy lúc 5h"
         },
         {
             "id": 3,
             "isDone": false,
-            "description": "di ngu"
+            "description": "1h học tiếng anh"
         }
     ]
 }

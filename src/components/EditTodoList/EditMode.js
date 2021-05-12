@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import Task from './Task/Task';
 import CreateTask from './CreateTask/CreateTask';
-import backgroundColor from './Task/Task'
-
+import './editMode.scss'
+ 
 const EditMode = ({ data, setData }) => {
     const [openCreate, setOpenCreate] = useState(false)
     const [isSort, setIsSort] = useState(false)
-
-    const handleCreate = (newTask) => {
+    const [isDoneAll, setIsDoneAll] = useState(false)
+ 
+    const handleCreate = (newTask, e) => {
         //edit task
+        e.preventDefault();
         if (newTask.id) {
             setData(data.map(item => { if (item.id === newTask.id) { return { ...item, description: newTask.description } } else return item }));
         }
-
+ 
         //create task
         else {
             if (newTask.description === '') {
@@ -24,22 +26,20 @@ const EditMode = ({ data, setData }) => {
                 setData([newTaskId, ...data || []])
             }
         }
-
-        setOpenCreate(false)
     }
-
+ 
     const handleCheckDone = (task) => {
         setData(data.map((item) => { if (item.id === task.id) { return task } else { return item } }))
     }
-
+ 
     const handleDoneAll = () => {
         data && setData(data.map((item) => { return { ...item, isDone: true } }))
     }
-
+ 
     const handleDeleteTask = (task) => {
         //delete task
         if (task) setData(data.filter((item) => { if (item.id !== task.id) return item }))
-
+ 
         //delete all
         else setData(null)
     }
@@ -47,47 +47,39 @@ const EditMode = ({ data, setData }) => {
         data && setData(data.sort((a, b) => a.description.localeCompare(b.description)))
         setIsSort(!isSort)
     }
-
-    const handleShuffle = () => {
-        // let dataId = data.map(item => item.id)
-        // dataId.sort(() => Math.random() - 0.5)
-        // let dataShuffle = data.filter(item => dataId.map(id => { if (item.id === id) return item }))
-        // console.log(dataShuffle);
-        // // console.log(dataShuffle.map(ar=> ar.filter(item=>item)))
-        // data && setData(dataShuffle.filter(item => item))
-    }
     return (
         <>
             <div className='edit-container'>
                 <div className='todolist-action'>
-                    <div className='btn-add'>
-                        {openCreate ? <CreateTask handleCreate={handleCreate} setOpenCreate={setOpenCreate} /> : <button onClick={() => setOpenCreate(true)}>
-                            Add
+                    {(openCreate && <CreateTask handleCreate={handleCreate} setOpenCreate={setOpenCreate} />) || <button className='btn-add btn-css' onClick={() => setOpenCreate(true)}>
+                        Add
                          </button>}
-                    </div>
-                    <div className='todolist-action-addOn'>
-                        <button className='btn-sort' onClick={handleSortAtoZ}>Sort A--Z</button>
+                    {/* <div className='todolist-action-addOn'>
+                        
                         <button className='btn-shuffle' onClick={() => {
                             handleShuffle()
                             setIsSort(!isSort)
                         }}>Sort shuffle</button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='dataTask'>
-                    {data && data.map((task) => <Task handleCreate={handleCreate} task={task} key={task.id} handleDeleteTask={handleDeleteTask} handleCheckDone={handleCheckDone} />)}
+                    {data && data.map((task) => <Task isDoneAll={isDoneAll} handleCreate={handleCreate} task={task} key={task.id} handleDeleteTask={handleDeleteTask} handleCheckDone={handleCheckDone} />)}
                 </div>
-                <div className='all-btn'>
-                    <button style={{ backgroundColor: backgroundColor.done }} className='all-btn-done' onClick={handleDoneAll}>
-                        Done All
+                <div className='btn'>
+                    <button className='btn-sort btn-css' onClick={handleSortAtoZ}>Sort A--Z</button>
+                    <div className='btn-all'>
+                        <button className='btn-all-done btn-css' onClick={() => { handleDoneAll(); setIsDoneAll(!isDoneAll) }}>
+                            DONE ALL
+                        </button>
+                        <button className='btn-all-del btn-css' onClick={() => handleDeleteTask(null)}>
+                            DEL ALL
                     </button>
-                    <button style={{ backgroundColor: backgroundColor.notDone }} className='all-btn-del' onClick={() => handleDeleteTask(null)}>
-                        DEL ALL
-                    </button>
+                    </div>
                 </div>
             </div>
         </>
-
+ 
     )
 }
-
+ 
 export default EditMode;

@@ -1,0 +1,21 @@
+.create-task {
+    margin-bottom: 1rem;
+    &-description {
+        padding: 1rem;
+        padding-right: 0;
+        border-radius: 5px;
+        border: 1px solid black;
+        width: 96%;
+    }
+    &-action {
+        text-align: right;
+        &-create,&-cancel {
+            margin-top: .5rem;
+            font-size: 1rem ;
+            padding: 0.25rem .5rem;
+        }
+        &-create{
+            margin-right: .5rem;
+        }
+    }
+}

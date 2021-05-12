@@ -1,27 +1,23 @@
-.task {
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem 0;
-    padding: 1rem;
-    border-radius: 0.25rem;
-    background-color: #28ebde;
-}
 .task-container {
     align-items: center;
     display: flex;
     justify-content: space-between;
     padding: 1rem;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     border-radius: 5px;
-    .task-description{
+    transition: all 0.2s ease-in;
+    .task-description {
+        transition: all 0.2s ease;
         text-align: center;
+        .task-check {
+            margin-right: 1rem;
+        }
     }
     .task-action {
         .task-btn-del {
-        background-color: #ff0000;
-        border-radius: 2px;
-        border:none;
-        padding: .5rem;
-    }
+            transition: all 0.2s ease-in;
+            border: none;
+            cursor: pointer;
+        }
     }
 }
